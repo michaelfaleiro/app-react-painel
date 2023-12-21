@@ -17,7 +17,7 @@ export default function OrcamentoDetalhes() {
     async () => {
       const response = await api.get(`/orcamentos/${id}`);
 
-      return response.data;
+      return response.data.data;
     },
     { refetchOnWindowFocus: false }
   );
@@ -49,7 +49,8 @@ export default function OrcamentoDetalhes() {
               Chassi: <span>{data?.chassi}</span>
             </p>
             <p>
-              Data Criação: <span>{data?.dataCriacao}</span>
+              Data Criação:
+              <span>{dateFormatter.format(new Date(data!.dataCriacao))}</span>
             </p>
           </div>
 

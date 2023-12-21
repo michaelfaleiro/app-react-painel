@@ -12,11 +12,16 @@ interface Props {
 }
 
 const schemaInput = z.object({
+  quantidade: z.number().nonnegative().default(1),
   nomeProduto: z.string().min(1, { message: "Informe o Produto" }),
   sku: z.string().toUpperCase().min(1, { message: "Informe o sku" }),
   marca: z.string().toUpperCase().min(1, { message: "Informe a Marca" }),
-  precoCusto: z.number().nonnegative().optional(),
-  precoVenda: z.number().nonnegative(),
+  precoCusto: z.string().refine((data) => !isNaN(parseFloat(data)), {
+    message: "O valor informado é inválido",
+  }),
+  precoVenda: z.string().refine((data) => !isNaN(parseFloat(data)), {
+    message: "O valor informado é inválido",
+  }),
   link: z.string().optional(),
   observacao: z.string().optional(),
   orcamentoId: z.string(),
@@ -37,7 +42,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
   const handleSubmit = async (data: TInput | unknown) => {
     setIsLoading(true);
     await api
-      .post("/orcamentos/addproduto", data)
+      .post(`/orcamentos/addproduto`, data)
       .then(() => {})
       .catch((err) => {
         console.log(err);
@@ -49,11 +54,32 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
     setIsLoading(false);
   };
 
+  console.log(orcId);
+
   if (isOpen) {
     return (
       <>
         <form action="" onSubmit={onSubmit(handleSubmit)}>
           <div className="flex border flex-wrap gap-2 p-1">
+            <div className="flex flex-col w-[3rem]">
+              <label htmlFor="quantidade" className="">
+                Quant
+              </label>
+              <input
+                type="text"
+                id="quantidade"
+                defaultValue={1}
+                className="text-black p-1 rounded-md focus:bg-gray-300"
+                {...register("quantidade", { valueAsNumber: true })}
+              />
+
+              {errors.quantidade && (
+                <span className="text-red-400 font-semibold">
+                  {errors.quantidade.message}
+                </span>
+              )}
+            </div>
+
             <div className="flex flex-col w-[26rem]">
               <label htmlFor="nomeProduto" className="">
                 Produto
@@ -73,7 +99,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
             </div>
             <div className="flex flex-col">
               <label htmlFor="sku" className="">
-                sku
+                Sku
               </label>
               <input
                 type="text"
@@ -91,7 +117,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
 
             <div className="flex flex-col ">
               <label htmlFor="marca" className="">
-                marca
+                Marca
               </label>
               <input
                 type="text"
@@ -109,14 +135,13 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
 
             <div className="flex flex-col">
               <label htmlFor="precoCusto" className="">
-                precoCusto
+                Custo
               </label>
               <input
-                type="number"
+                type="text"
                 id="precoCusto"
                 className="text-black p-1 rounded-md focus:bg-gray-300"
-                defaultValue="0"
-                {...register("precoCusto", { valueAsNumber: true })}
+                {...register("precoCusto")}
               />
 
               {errors.precoCusto && (
@@ -128,14 +153,13 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
 
             <div className="flex flex-col">
               <label htmlFor="precoVenda" className="">
-                precoVenda
+                Venda
               </label>
               <input
-                type="number"
+                type="text"
                 id="precoVenda"
                 className="text-black p-1 rounded-md focus:bg-gray-300"
-                defaultValue="0"
-                {...register("precoVenda", { valueAsNumber: true })}
+                {...register("precoVenda")}
               />
 
               {errors.precoVenda && (
@@ -147,7 +171,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
 
             <div className="flex flex-col w-[30rem]">
               <label htmlFor="link" className="">
-                link
+                Link
               </label>
               <input
                 type="text"
@@ -165,7 +189,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
 
             <div className="flex flex-col w-[30rem]">
               <label htmlFor="observacao" className="">
-                observacao
+                Observação
               </label>
               <input
                 type="text"

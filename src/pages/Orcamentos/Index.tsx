@@ -13,7 +13,7 @@ export default function Orcamentos() {
     async () => {
       const response = await api.get(`/orcamentos`);
 
-      return response.data;
+      return response.data.data;
     },
     { refetchOnWindowFocus: false }
   );
