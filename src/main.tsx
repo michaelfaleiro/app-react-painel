@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <Orcamentos />,
       },
       {
-        path: "/orcamento/:id",
+        path: "/app-react-painel/orcamento/:id",
         element: <OrcamentoDetalhes />,
       },
       {
