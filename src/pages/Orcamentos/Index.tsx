@@ -62,7 +62,7 @@ export default function Orcamentos() {
                     <td>{item.chassis}</td>
                     <td>{dateFormatter.format(new Date(item.createdAt))}</td>
                     <td>
-                      <Link to={`/orcamento/${item.id}`}>
+                      <Link to={`app-react-painel/orcamento/${item.id}`}>
                         <i className="bi bi-card-list"></i>
                       </Link>
                     </td>
