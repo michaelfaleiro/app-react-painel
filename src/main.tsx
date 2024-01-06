@@ -17,11 +17,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "",
+        path: "/app-react-painel/",
         element: <Orcamentos />,
       },
       {
-        path: "/orcamento/:id",
+        path: "/app-react-painel/orcamento/:id",
         element: <OrcamentoDetalhes />,
       },
       {
