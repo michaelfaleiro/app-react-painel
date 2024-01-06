@@ -12,16 +12,12 @@ interface Props {
 }
 
 const schemaInput = z.object({
-  quantidade: z.number().nonnegative().default(1),
   nomeProduto: z.string().min(1, { message: "Informe o Produto" }),
   sku: z.string().toUpperCase().min(1, { message: "Informe o sku" }),
   marca: z.string().toUpperCase().min(1, { message: "Informe a Marca" }),
-  precoCusto: z.string().refine((data) => !isNaN(parseFloat(data)), {
-    message: "O valor informado é inválido",
-  }),
-  precoVenda: z.string().refine((data) => !isNaN(parseFloat(data)), {
-    message: "O valor informado é inválido",
-  }),
+  quantidade: z.number(),
+  precoCusto: z.number(),
+  precoVenda: z.number(),
   link: z.string().optional(),
   observacao: z.string().optional(),
   orcamentoId: z.string(),
@@ -42,7 +38,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
   const handleSubmit = async (data: TInput | unknown) => {
     setIsLoading(true);
     await api
-      .post(`/orcamentos/addproduto`, data)
+      .post(`/orcamentos/${orcId}`, data)
       .then(() => {})
       .catch((err) => {
         console.log(err);
@@ -115,33 +111,16 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
               )}
             </div>
 
-            <div className="flex flex-col ">
-              <label htmlFor="marca" className="">
-                Marca
-              </label>
-              <input
-                type="text"
-                id="marca"
-                className="text-black p-1 rounded-md focus:bg-gray-300"
-                {...register("marca")}
-              />
-
-              {errors.marca && (
-                <span className="text-red-400 font-semibold">
-                  {errors.marca.message}
-                </span>
-              )}
-            </div>
-
             <div className="flex flex-col">
               <label htmlFor="precoCusto" className="">
-                Custo
+                precoCusto
               </label>
               <input
                 type="text"
                 id="precoCusto"
                 className="text-black p-1 rounded-md focus:bg-gray-300"
-                {...register("precoCusto")}
+                defaultValue="0"
+                {...register("precoCusto", { valueAsNumber: true })}
               />
 
               {errors.precoCusto && (
@@ -153,18 +132,37 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
 
             <div className="flex flex-col">
               <label htmlFor="precoVenda" className="">
-                Venda
+                precoVenda
               </label>
               <input
                 type="text"
                 id="precoVenda"
                 className="text-black p-1 rounded-md focus:bg-gray-300"
-                {...register("precoVenda")}
+                defaultValue="0"
+                {...register("precoVenda", { valueAsNumber: true })}
               />
 
               {errors.precoVenda && (
                 <span className="text-red-400 font-semibold">
                   {errors.precoVenda.message}
+                </span>
+              )}
+            </div>
+
+            <div className="flex flex-col ">
+              <label htmlFor="marca" className="">
+                marca
+              </label>
+              <input
+                type="text"
+                id="marca"
+                className="text-black p-1 rounded-md focus:bg-gray-300"
+                {...register("marca")}
+              />
+
+              {errors.marca && (
+                <span className="text-red-400 font-semibold">
+                  {errors.marca.message}
                 </span>
               )}
             </div>

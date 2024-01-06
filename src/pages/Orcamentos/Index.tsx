@@ -5,10 +5,11 @@ import { dateFormatter } from "../../utils/formatter";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ModalNovoOrcamento from "./ModalNovoOrcamento";
+import Spinner from "../../assets/tube-spinner.svg";
 
 export default function Orcamentos() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { data } = useQuery<TOrcamento[]>(
+  const { data, isLoading } = useQuery<TOrcamento[]>(
     "orcamentos",
     async () => {
       const response = await api.get(`/orcamentos`);
@@ -32,36 +33,45 @@ export default function Orcamentos() {
 
         <ModalNovoOrcamento isOpen={isOpen} setIsOpen={setIsOpen} />
 
-        <table className="w-full text-sm text-left rtl:text-right  text-gray-400">
-          <thead className="text-xs  uppercase bg-gray-700 text-gray-400">
-            <tr>
-              <th>Cliente</th>
-              <th>Carro</th>
-              <th>Placa</th>
-              <th>Chassi</th>
-              <th>DataCriacão</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody className="bg-gray-800 border-b border-gray-700  ">
-            {data?.map((item: TOrcamento) => {
-              return (
-                <tr key={item.id}>
-                  <td>{item.cliente}</td>
-                  <td>{item.veiculo}</td>
-                  <td>{item.placa}</td>
-                  <td>{item.chassi}</td>
-                  <td>{dateFormatter.format(new Date(item.dataCriacao))}</td>
-                  <td>
-                    <Link to={`/orcamento/${item.id}`}>
-                      <i className="bi bi-card-list"></i>
-                    </Link>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        {isLoading ? (
+          <div className="flex items-start justify-center w-full h-screen">
+            <div className="w-max h-20 text-center">
+              <span>Carregando...</span>
+              <img src={Spinner} alt="" />
+            </div>
+          </div>
+        ) : (
+          <table className="w-full text-sm text-left rtl:text-right  text-gray-400">
+            <thead className="text-xs  uppercase bg-gray-700 text-gray-400">
+              <tr>
+                <th>Cliente</th>
+                <th>Carro</th>
+                <th>Placa</th>
+                <th>Chassi</th>
+                <th>DataCriacão</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody className="bg-gray-800 border-b border-gray-700  ">
+              {data?.map((item: TOrcamento) => {
+                return (
+                  <tr key={item.id}>
+                    <td>{item.cliente}</td>
+                    <td>{item.carro}</td>
+                    <td>{item.placa}</td>
+                    <td>{item.chassis}</td>
+                    <td>{dateFormatter.format(new Date(item.createdAt))}</td>
+                    <td>
+                      <Link to={`/orcamento/${item.id}`}>
+                        <i className="bi bi-card-list"></i>
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </main>
     </>
   );

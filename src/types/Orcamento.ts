@@ -1,10 +1,12 @@
 export type TOrcamento = {
   id?: string;
   cliente: string;
-  veiculo: string;
+  carro: string;
   placa?: string;
-  chassi?: string;
-  dataCriacao: string;
+  chassis?: string;
+  total?: number | any;
+  createdAt: string | any;
+  updatedAt: string;
   produtos?: TProduto[];
 };
 
@@ -13,10 +15,11 @@ export type TProduto = {
   sku?: string;
   nomeProduto: string;
   marca: string;
+  quantidade: number;
   precoCusto: number;
   precoVenda: number;
   link?: string;
-  Observacao?: string;
-  orcamentoId: string;
-  dataCriacao: string;
+  observacao?: string;
+  createdAt: string;
+  updatedAt: string;
 };

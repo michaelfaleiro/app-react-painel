@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import { TOrcamento, TProduto } from "../../types/Orcamento";
-import { dateFormatter, priceFormatter } from "../../utils/formatter";
+import { priceFormatter } from "../../utils/formatter";
 import { queryClient } from "../../services/queryClient";
 import NovoProduto from "./NovoProduto";
 import { useState } from "react";
@@ -23,7 +23,7 @@ export default function OrcamentoDetalhes() {
   );
 
   const removeProduto = async (idProduto: string) => {
-    const response = await api.delete(`/orcamentos/removeproduto/${idProduto}`);
+    const response = await api.delete(`/orcamentos/${id}/${idProduto}`);
 
     await queryClient.invalidateQueries(["orcamentoId"]);
     return response;
@@ -40,17 +40,17 @@ export default function OrcamentoDetalhes() {
               Cliente: <span>{data?.cliente}</span>
             </p>
             <p>
-              Carro: <span>{data?.veiculo}</span>
+              Carro: <span>{data?.carro}</span>
             </p>
             <p>
-              Placa: <span>{data?.veiculo}</span>
+              Placa: <span>{data?.placa}</span>
             </p>
             <p>
-              Chassi: <span>{data?.chassi}</span>
+              Chassi: <span>{data?.chassis}</span>
             </p>
             <p>
               Data Criação:
-              <span>{dateFormatter.format(new Date(data!.dataCriacao))}</span>
+              {/* <span>{dateFormatter.format(new Date(data?.createdAt))}</span> */}
             </p>
           </div>
 
@@ -58,7 +58,7 @@ export default function OrcamentoDetalhes() {
             <h4 className="text-center border-t p-1">Totais</h4>
             <section className="p-1">
               <p>
-                Produtos : <span>R$ 150,00</span>
+                Produtos : <span> {priceFormatter.format(data?.total)}</span>
               </p>
               <p>
                 Cupom : <span>R$ 0.00</span>
@@ -90,13 +90,14 @@ export default function OrcamentoDetalhes() {
           <table className="w-full text-base text-left border rounded-sm  ">
             <thead className="text-base uppercase bg-zinc-700 text-zinc-400 ">
               <tr>
+                <th>Quant</th>
                 <th>Produto</th>
                 <th>Sku</th>
                 <th>Marca</th>
                 <th>Custo</th>
                 <th>Venda</th>
                 <th>Link Produto</th>
-                <th>Adicionado</th>
+                <th>Total</th>
                 <th></th>
               </tr>
             </thead>
@@ -107,6 +108,7 @@ export default function OrcamentoDetalhes() {
                     key={item.id}
                     className="hover:bg-gray-300 border-b border-b-gray-600 text-md-"
                   >
+                    <td className="px-1 py-2">{item.quantidade}</td>
                     <td className="px-1 py-2">{item.nomeProduto}</td>
                     <td className="px-1 py-2">{item.sku}</td>
                     <td className="px-1 py-2">{item.marca}</td>
@@ -118,14 +120,16 @@ export default function OrcamentoDetalhes() {
                     </td>
                     <td>
                       <a
-                        href={item.link}
+                        href={item.sku}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         <i className="bi bi-browser-chrome"></i>
                       </a>
                     </td>
-                    <td>{dateFormatter.format(new Date(item.dataCriacao))}</td>
+                    <td>
+                      {priceFormatter.format(item.quantidade * item.precoVenda)}
+                    </td>
                     <td>
                       <button type="button">
                         <i

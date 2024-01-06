@@ -12,13 +12,14 @@ interface Props {
 
 const schemaInput = z.object({
   cliente: z.string().min(1, { message: "Informe o Cliente" }),
-  veiculo: z.string(),
+  telefone: z.string(),
+  carro: z.string(),
   placa: z
     .string()
     .max(7, { message: "Apenas 7 digitos" })
     .toUpperCase()
     .optional(),
-  chassi: z.string().toUpperCase().optional(),
+  chassis: z.string().toUpperCase().optional(),
 });
 
 type TInput = z.infer<typeof schemaInput>;
@@ -87,6 +88,24 @@ export default function ModalNovoOrcamento({ isOpen, setIsOpen }: Props) {
                 )}
               </div>
 
+              <div className="flex flex-col w-[58%]">
+                <label htmlFor="cliente" className="">
+                  Telefone
+                </label>
+                <input
+                  type="text"
+                  id="telefone"
+                  className="text-black p-1 rounded-md focus:bg-gray-300"
+                  {...register("telefone")}
+                />
+
+                {errors.telefone && (
+                  <span className="text-red-400 font-semibold">
+                    {errors.telefone.message}
+                  </span>
+                )}
+              </div>
+
               <div className="flex flex-col h-16 w-[58%] ">
                 <label htmlFor="veiculo" className="">
                   Veiculo
@@ -95,11 +114,11 @@ export default function ModalNovoOrcamento({ isOpen, setIsOpen }: Props) {
                   type="text"
                   id="carro"
                   className="text-black p-1 rounded-md focus:bg-gray-300"
-                  {...register("veiculo")}
+                  {...register("carro")}
                 />
-                {errors.veiculo && (
+                {errors.carro && (
                   <span className="text-red-400 font-semibold">
-                    {errors.veiculo.message}
+                    {errors.carro.message}
                   </span>
                 )}
               </div>
@@ -127,13 +146,13 @@ export default function ModalNovoOrcamento({ isOpen, setIsOpen }: Props) {
                 </label>
                 <input
                   type="text"
-                  id="chassi"
+                  id="chassis"
                   className="text-black p-1 rounded-md focus:bg-gray-300"
-                  {...register("chassi")}
+                  {...register("chassis")}
                 />
-                {errors.chassi && (
+                {errors.chassis && (
                   <span className="text-red-400 font-semibold">
-                    {errors.chassi.message}
+                    {errors.chassis.message}
                   </span>
                 )}
               </div>
