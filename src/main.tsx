@@ -12,12 +12,12 @@ import OrcamentoDetalhes from "./pages/Orcamentos/Orcamento.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/app-react-painel/",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: "/app-react-painel/",
         element: <Orcamentos />,
       },
       {
