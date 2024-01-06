@@ -113,7 +113,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
 
             <div className="flex flex-col">
               <label htmlFor="precoCusto" className="">
-                precoCusto
+                Custo
               </label>
               <input
                 type="text"
@@ -132,7 +132,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
 
             <div className="flex flex-col">
               <label htmlFor="precoVenda" className="">
-                precoVenda
+                Venda
               </label>
               <input
                 type="text"
@@ -151,7 +151,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
 
             <div className="flex flex-col ">
               <label htmlFor="marca" className="">
-                marca
+                Marca
               </label>
               <input
                 type="text"

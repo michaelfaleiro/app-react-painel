@@ -24,10 +24,15 @@ export default function Orcamentos() {
       <main>
         <div className="mb-3">
           <button
-            className="bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4"
+            className="bg-slate-700 hover:bg-slate-900
+             text-slate-300 text-sm 
+             focus:outline-none focus:ring-4
+             py-1 px-2
+             "
             onClick={() => setIsOpen(true)}
           >
-            Novo Orcamento
+            <i className="bi bi-clipboard-plus-fill mr-3"></i>
+            Novo
           </button>
         </div>
 
@@ -63,7 +68,7 @@ export default function Orcamentos() {
                     <td>{dateFormatter.format(new Date(item.createdAt))}</td>
                     <td>
                       <Link to={`/app-react-painel/orcamento/${item.id}`}>
-                        <i className="bi bi-card-list"></i>
+                        <i className="bi bi-card-list hover:text-slate-500"></i>
                       </Link>
                     </td>
                   </tr>

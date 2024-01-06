@@ -82,10 +82,11 @@ export default function OrcamentoDetalhes() {
 
           <div className="pb-1">
             <button
+              title="Adicionar Produto"
               onClick={() => setIsOpen(!isOpen)}
-              className="bg-cyan-700 px-5 py-1 hover:bg-cyan-600 "
+              className="bg-slate-500 px-5 py-1 hover:bg-slate-700 text-slate-900 hover:text-slate-400  "
             >
-              <i className="bi bi-cart-plus-fill text-cyan-100"></i>
+              <i className="bi bi-cart-plus-fill "></i>
             </button>
           </div>
           <NovoProduto isOpen={isOpen} setIsOpen={setIsOpen} orcId={data?.id} />
@@ -135,7 +136,10 @@ export default function OrcamentoDetalhes() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <i className="bi bi-browser-chrome"></i>
+                          <i
+                            title="Link do Produto"
+                            className="bi bi-browser-chrome text-blue-800 hover:text-blue-500"
+                          ></i>
                         </a>
                       </td>
                       <td>
@@ -146,6 +150,7 @@ export default function OrcamentoDetalhes() {
                       <td>
                         <button type="button">
                           <i
+                            title="Excluir Produto"
                             onClick={() => removeProduto(item.id)}
                             className="bi bi-trash3-fill"
                           ></i>
