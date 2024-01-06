@@ -24,6 +24,10 @@ const router = createBrowserRouter([
         path: "/orcamento/:id",
         element: <OrcamentoDetalhes />,
       },
+      {
+        path: "*",
+        element: <ErrorPage />,
+      },
     ],
   },
 ]);
