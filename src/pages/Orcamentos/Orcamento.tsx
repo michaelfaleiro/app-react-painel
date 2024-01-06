@@ -131,7 +131,7 @@ export default function OrcamentoDetalhes() {
                       </td>
                       <td>
                         <a
-                          href={item.sku}
+                          href={item.link}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
