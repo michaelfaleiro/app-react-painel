@@ -7,12 +7,14 @@ import { queryClient } from "../../services/queryClient";
 import NovoProduto from "./NovoProduto";
 import { useState } from "react";
 
+import Spinner from "../../assets/tube-spinner.svg";
+
 export default function OrcamentoDetalhes() {
   const { id } = useParams();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const { data } = useQuery<TOrcamento>(
+  const { data, isLoading } = useQuery<TOrcamento>(
     "orcamentoId",
     async () => {
       const response = await api.get(`/orcamentos/${id}`);
@@ -70,7 +72,7 @@ export default function OrcamentoDetalhes() {
                 Frete : <span>R$ 0.00 </span>
               </p>
               <p>
-                Total : <span>R$ 150.00 </span>
+                Total : <span>{priceFormatter.format(data?.total)}</span>
               </p>
             </section>
           </footer>
@@ -87,62 +89,74 @@ export default function OrcamentoDetalhes() {
             </button>
           </div>
           <NovoProduto isOpen={isOpen} setIsOpen={setIsOpen} orcId={data?.id} />
-          <table className="w-full text-base text-left border rounded-sm  ">
-            <thead className="text-base uppercase bg-zinc-700 text-zinc-400 ">
-              <tr>
-                <th>Quant</th>
-                <th>Produto</th>
-                <th>Sku</th>
-                <th>Marca</th>
-                <th>Custo</th>
-                <th>Venda</th>
-                <th>Link Produto</th>
-                <th>Total</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody className=" bg-gray-400 border-b border-gray-700   ">
-              {data?.produtos?.map((item: TProduto) => {
-                return (
-                  <tr
-                    key={item.id}
-                    className="hover:bg-gray-300 border-b border-b-gray-600 text-md-"
-                  >
-                    <td className="px-1 py-2">{item.quantidade}</td>
-                    <td className="px-1 py-2">{item.nomeProduto}</td>
-                    <td className="px-1 py-2">{item.sku}</td>
-                    <td className="px-1 py-2">{item.marca}</td>
-                    <td className="px-1 py-2">
-                      {priceFormatter.format(item.precoCusto)}
-                    </td>
-                    <td className="px-6 py-4">
-                      {priceFormatter.format(item.precoVenda)}
-                    </td>
-                    <td>
-                      <a
-                        href={item.sku}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <i className="bi bi-browser-chrome"></i>
-                      </a>
-                    </td>
-                    <td>
-                      {priceFormatter.format(item.quantidade * item.precoVenda)}
-                    </td>
-                    <td>
-                      <button type="button">
-                        <i
-                          onClick={() => removeProduto(item.id)}
-                          className="bi bi-trash3-fill"
-                        ></i>
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+
+          {isLoading ? (
+            <div className="flex items-start justify-center w-full h-screen">
+              <div className="w-max h-20 text-center">
+                <span>Carregando...</span>
+                <img src={Spinner} alt="" />
+              </div>
+            </div>
+          ) : (
+            <table className="w-full text-base text-left border rounded-sm  ">
+              <thead className="text-base uppercase bg-zinc-700 text-zinc-400 ">
+                <tr>
+                  <th>Quant</th>
+                  <th>Produto</th>
+                  <th>Sku</th>
+                  <th>Marca</th>
+                  <th>Custo</th>
+                  <th>Venda</th>
+                  <th>Link Produto</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody className=" bg-gray-400 border-b border-gray-700   ">
+                {data?.produtos?.map((item: TProduto) => {
+                  return (
+                    <tr
+                      key={item.id}
+                      className="hover:bg-gray-300 border-b border-b-gray-600 text-md-"
+                    >
+                      <td className="px-1 py-2">{item.quantidade}</td>
+                      <td className="px-1 py-2">{item.nomeProduto}</td>
+                      <td className="px-1 py-2">{item.sku}</td>
+                      <td className="px-1 py-2">{item.marca}</td>
+                      <td className="px-1 py-2">
+                        {priceFormatter.format(item.precoCusto)}
+                      </td>
+                      <td className="px-6 py-4">
+                        {priceFormatter.format(item.precoVenda)}
+                      </td>
+                      <td>
+                        <a
+                          href={item.sku}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <i className="bi bi-browser-chrome"></i>
+                        </a>
+                      </td>
+                      <td>
+                        {priceFormatter.format(
+                          item.quantidade * item.precoVenda
+                        )}
+                      </td>
+                      <td>
+                        <button type="button">
+                          <i
+                            onClick={() => removeProduto(item.id)}
+                            className="bi bi-trash3-fill"
+                          ></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </section>
       </div>
     </>
