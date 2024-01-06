@@ -7,10 +7,10 @@ export default function SideBar() {
       <section>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/app-react-painel">Home</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/app-react-painel/login">Login</Link>
           </li>
         </ul>
       </section>
