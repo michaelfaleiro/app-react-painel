@@ -9,6 +9,7 @@ import ErrorPage from "./pages/ErrorPage/Index.tsx";
 import Orcamentos from "./pages/Orcamentos/Index.tsx";
 import { queryClient } from "./services/queryClient.ts";
 import OrcamentoDetalhes from "./pages/Orcamentos/Orcamento.tsx";
+import PrintOrcamento from "./pages/Orcamentos/PrintOrcamento.tsx";
 
 const router = createBrowserRouter([
   {

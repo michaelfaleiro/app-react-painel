@@ -54,11 +54,9 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
     return (
       <>
         <form action="" onSubmit={onSubmit(handleSubmit)}>
-          <div className="flex border flex-wrap gap-2 p-1 ">
+          <div className="flex border flex-wrap gap-2 p-1">
             <div className="flex flex-col w-[3rem]">
-              <label htmlFor="quantidade" className="">
-                Quant
-              </label>
+              <label htmlFor="quantidade">Quant</label>
               <input
                 type="text"
                 id="quantidade"

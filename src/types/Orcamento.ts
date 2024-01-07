@@ -23,3 +23,10 @@ export type TProduto = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type TImpressao = {
+  quantidade: number;
+  nomeProduto: string;
+  marca: string;
+  precoVenda: number;
+};

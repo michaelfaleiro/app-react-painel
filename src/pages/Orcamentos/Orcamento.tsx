@@ -7,6 +7,8 @@ import { queryClient } from "../../services/queryClient";
 import NovoProduto from "./NovoProduto";
 import { useState } from "react";
 
+import { OrcamentoPdf } from "../../Reports/OrcamentoPdf";
+
 import Spinner from "../../assets/tube-spinner.svg";
 
 export default function OrcamentoDetalhes() {
@@ -80,18 +82,30 @@ export default function OrcamentoDetalhes() {
         <section className="grow p-1 border border-gray-400 shadow-2xl">
           <h3>DETALHES DO ORCAMENTO</h3>
 
-          <div className="pb-1">
+          <div className="pb-1 flex gap-3 ">
             <button
               title="Adicionar Produto"
               onClick={() => setIsOpen(!isOpen)}
-              className="px-4 py-1 rounded-sm   
+              className="px-4 py-1 rounded-sm  w-24  
               bg-slate-900 hover:bg-slate-700
              text-slate-400 hover:text-gray-300 transition duration-300 ease-in"
             >
               <i className="bi bi-cart-plus-fill mr-2 "></i>
               Novo
             </button>
+
+            <button
+              className="px-4 py-1 rounded-sm  w-24 
+              bg-red-900 hover:bg-red-800
+             text-slate-400 hover:text-gray-300 transition duration-300 ease-in"
+              onClick={() => OrcamentoPdf(data?.produtos)}
+              title="Gerar Pdf"
+            >
+              <i className="bi bi-filetype-pdf mr-2"></i>
+              Pdf
+            </button>
           </div>
+
           <NovoProduto isOpen={isOpen} setIsOpen={setIsOpen} orcId={data?.id} />
 
           {isLoading ? (
