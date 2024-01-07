@@ -21,13 +21,12 @@ export default function Orcamentos() {
 
   return (
     <>
-      <main>
-        <div className="mb-3">
+      <main className="p-1 border border-gray-400 shadow-lg h-full">
+        <div className="mb-2">
           <button
-            className="bg-slate-700 hover:bg-slate-900
-             text-slate-300 text-sm 
-             focus:outline-none focus:ring-4
-             py-1 px-2
+            className="px-4 py-1 rounded-sm   
+            bg-slate-900 hover:bg-slate-800
+           text-slate-400 hover:text-gray-300 transition duration-300 ease-in  
              "
             onClick={() => setIsOpen(true)}
           >
@@ -39,15 +38,15 @@ export default function Orcamentos() {
         <ModalNovoOrcamento isOpen={isOpen} setIsOpen={setIsOpen} />
 
         {isLoading ? (
-          <div className="flex items-start justify-center w-full h-screen">
+          <div className="flex items-start justify-center w-full h-full">
             <div className="w-max h-20 text-center">
               <span>Carregando...</span>
-              <img src={Spinner} alt="" />
+              <img className="text-blue-400" src={Spinner} alt="" />
             </div>
           </div>
         ) : (
-          <table className="w-full text-sm text-left rtl:text-right  text-gray-400">
-            <thead className="text-xs  uppercase bg-gray-700 text-gray-400">
+          <table className="w-full text-sm text-center rtl:text-right  text-gray-400">
+            <thead className="text-xs uppercase bg-gray-700 text-gray-400">
               <tr>
                 <th>Cliente</th>
                 <th>Carro</th>
@@ -57,18 +56,30 @@ export default function Orcamentos() {
                 <th></th>
               </tr>
             </thead>
-            <tbody className="bg-gray-800 border-b border-gray-700  ">
+            <tbody className="bg-gray-800 border-b border-gray-700 text-gray-400  ">
               {data?.map((item: TOrcamento) => {
                 return (
-                  <tr key={item.id}>
-                    <td>{item.cliente}</td>
-                    <td>{item.carro}</td>
-                    <td>{item.placa}</td>
-                    <td>{item.chassis}</td>
-                    <td>{dateFormatter.format(new Date(item.createdAt))}</td>
+                  <tr
+                    className="hover:bg-gray-700 hover:text-gray-300 transition-all border-b border-b-gray-600 "
+                    key={item.id}
+                  >
+                    <td className="px-1 py-2 text-left">
+                      <Link to={`/app-react-painel/orcamento/${item.id}`}>
+                        {item.cliente}
+                      </Link>
+                    </td>
+                    <td className="px-1 py-2">{item.carro}</td>
+                    <td className="px-1 py-2">{item.placa}</td>
+                    <td className="px-1 py-2">{item.chassis}</td>
+                    <td className="px-1 py-2">
+                      {dateFormatter.format(new Date(item.createdAt))}
+                    </td>
                     <td>
                       <Link to={`/app-react-painel/orcamento/${item.id}`}>
-                        <i className="bi bi-card-list hover:text-slate-500"></i>
+                        <i
+                          title="Detalhes"
+                          className="bi bi-card-list py-1 px-2 rounded-sm bg-slate-900 hover:bg-slate-400 transition duration-300 ease-in"
+                        ></i>
                       </Link>
                     </td>
                   </tr>

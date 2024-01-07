@@ -50,13 +50,11 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
     setIsLoading(false);
   };
 
-  console.log(orcId);
-
   if (isOpen) {
     return (
       <>
         <form action="" onSubmit={onSubmit(handleSubmit)}>
-          <div className="flex border flex-wrap gap-2 p-1">
+          <div className="flex border flex-wrap gap-2 p-1 ">
             <div className="flex flex-col w-[3rem]">
               <label htmlFor="quantidade" className="">
                 Quant
@@ -221,18 +219,21 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
               )}
             </div>
 
-            {isLoading ? (
+            <button className="bg-slate-900 mt-6 rounded-sm hover:bg-slate-700 hover:text-gray-900 text-gray-400 transition duration-300 ease-in">
+              <i className="bi bi-file-earmark-plus-fill  px-4 ">Adicionar</i>
+            </button>
+
+            {isLoading && (
               <>
                 <button
                   disabled
                   type="button"
-                  className="text-white bg-slate-800 focus:outline-none focus:ring-4
-                    text-sm px-5 py-1.5 text-center mr-2 mb-2 rounded-full"
+                  className="py-2 px-2 me-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center"
                 >
                   <svg
                     aria-hidden="true"
                     role="status"
-                    className="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600"
+                    className="inline w-2 h-2 me-3 text-gray-200 animate-spin dark:text-gray-600"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -246,13 +247,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
                       fill="#1C64F2"
                     />
                   </svg>
-                  Salvando...
-                </button>
-              </>
-            ) : (
-              <>
-                <button className="py-5 items-center">
-                  <i className="bi bi-file-earmark-plus-fill pt-3 text-2xl text-red-800 hover:text-red-500"></i>
+                  Loading...
                 </button>
               </>
             )}

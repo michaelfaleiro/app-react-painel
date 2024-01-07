@@ -33,8 +33,8 @@ export default function OrcamentoDetalhes() {
 
   return (
     <>
-      <div className="flex flex-row h-full">
-        <header className="border p-1 flex flex-col">
+      <div className="flex flex-row h-full bg-gray-500 ">
+        <header className="border border-gray-400 p-1 flex flex-col">
           <div className="grow min-w-max">
             <h3 className=" text-center">Dados Cliente</h3>
 
@@ -77,16 +77,19 @@ export default function OrcamentoDetalhes() {
             </section>
           </footer>
         </header>
-        <section className="grow p-1 border">
+        <section className="grow p-1 border border-gray-400 shadow-2xl">
           <h3>DETALHES DO ORCAMENTO</h3>
 
           <div className="pb-1">
             <button
               title="Adicionar Produto"
               onClick={() => setIsOpen(!isOpen)}
-              className="bg-slate-500 px-5 py-1 hover:bg-slate-700 text-slate-900 hover:text-slate-400  "
+              className="px-4 py-1 rounded-sm   
+              bg-slate-900 hover:bg-slate-700
+             text-slate-400 hover:text-gray-300 transition duration-300 ease-in"
             >
-              <i className="bi bi-cart-plus-fill "></i>
+              <i className="bi bi-cart-plus-fill mr-2 "></i>
+              Novo
             </button>
           </div>
           <NovoProduto isOpen={isOpen} setIsOpen={setIsOpen} orcId={data?.id} />
@@ -94,13 +97,13 @@ export default function OrcamentoDetalhes() {
           {isLoading ? (
             <div className="flex items-start justify-center w-full h-screen">
               <div className="w-max h-20 text-center">
-                <span>Carregando...</span>
-                <img src={Spinner} alt="" />
+                <span>Carregando.....</span>
+                <img src={Spinner} alt="spinner" />
               </div>
             </div>
           ) : (
-            <table className="w-full text-base text-left border rounded-sm  ">
-              <thead className="text-base uppercase bg-zinc-700 text-zinc-400 ">
+            <table className="w-full text-sm text-center rtl:text-right  text-gray-400   ">
+              <thead className="text-xs uppercase bg-gray-700 text-gray-400  ">
                 <tr>
                   <th>Quant</th>
                   <th>Produto</th>
@@ -113,15 +116,17 @@ export default function OrcamentoDetalhes() {
                   <th></th>
                 </tr>
               </thead>
-              <tbody className=" bg-gray-400 border-b border-gray-700   ">
+              <tbody className=" bg-gray-800 border-b border-gray-700 text-gray-400   ">
                 {data?.produtos?.map((item: TProduto) => {
                   return (
                     <tr
                       key={item.id}
-                      className="hover:bg-gray-300 border-b border-b-gray-600 text-md-"
+                      className="hover:bg-gray-700 hover:text-gray-300 duration-300 ease-linear border-b border-b-gray-600"
                     >
                       <td className="px-1 py-2">{item.quantidade}</td>
-                      <td className="px-1 py-2">{item.nomeProduto}</td>
+                      <td className="px-1 py-2 text-left">
+                        {item.nomeProduto}
+                      </td>
                       <td className="px-1 py-2">{item.sku}</td>
                       <td className="px-1 py-2">{item.marca}</td>
                       <td className="px-1 py-2">
@@ -138,8 +143,10 @@ export default function OrcamentoDetalhes() {
                         >
                           <i
                             title="Link do Produto"
-                            className="bi bi-browser-chrome text-blue-800 hover:text-blue-500"
-                          ></i>
+                            className="bi bi-browser-chrome px-2 py-1 text-blue-400 hover:text-blue-600 hover:text-lg duration-500 ease-in"
+                          >
+                            Link
+                          </i>
                         </a>
                       </td>
                       <td>
@@ -148,10 +155,15 @@ export default function OrcamentoDetalhes() {
                         )}
                       </td>
                       <td>
-                        <button type="button">
+                        <button
+                          type="button"
+                          onClick={() => removeProduto(item.id)}
+                          className="px-3 py-1 rounded-sm      
+                                bg-red-900 hover:bg-red-600 transition duration-500 ease-in-out
+                                text-rose-300"
+                        >
                           <i
                             title="Excluir Produto"
-                            onClick={() => removeProduto(item.id)}
                             className="bi bi-trash3-fill"
                           ></i>
                         </button>
