@@ -1,5 +1,5 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import "pdfmake/build/vfs_fonts";
 
 const priceFormatter = new Intl.NumberFormat("pt-Br", {
   style: "currency",
@@ -7,8 +7,6 @@ const priceFormatter = new Intl.NumberFormat("pt-Br", {
 });
 
 export function OrcamentoPdf(orcamentos) {
-  pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
   const reportTitle = [
     {
       text: "Orcamento",
