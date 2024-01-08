@@ -7,9 +7,8 @@ import { queryClient } from "../../services/queryClient";
 import NovoProduto from "./NovoProduto";
 import { useState } from "react";
 
-import { OrcamentoPdf } from "../../Reports/OrcamentoPdf";
-
 import Spinner from "../../assets/tube-spinner.svg";
+import { PdfOrcamento } from "../../Reports/PdfOrcamento";
 
 export default function OrcamentoDetalhes() {
   const { id } = useParams();
@@ -98,7 +97,7 @@ export default function OrcamentoDetalhes() {
               className="px-4 py-1 rounded-sm  w-24 
               bg-red-900 hover:bg-red-800
              text-slate-400 hover:text-gray-300 transition duration-300 ease-in"
-              onClick={() => OrcamentoPdf(data?.produtos)}
+              onClick={() => PdfOrcamento(data?.produtos!)}
               title="Gerar Pdf"
             >
               <i className="bi bi-filetype-pdf mr-2"></i>

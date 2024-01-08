@@ -1,51 +1,62 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import "pdfmake/build/vfs_fonts";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { TProduto } from "../types/Orcamento";
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const priceFormatter = new Intl.NumberFormat("pt-Br", {
   style: "currency",
   currency: "BRL",
 });
 
-export function OrcamentoPdf(orcamentos) {
-  const reportTitle = [
+export interface Orcamento {
+  quantidade: number;
+  nomeProduto: string;
+  marca: string;
+  precoVenda: number;
+}
+
+export function PdfOrcamento(orcamentos: TProduto[]): void {
+  const reportTitle: any = [
     {
       text: "Orcamento",
       fontSize: 15,
       bold: true,
-      margin: [250, 20, 0, 45], //left, top, right, bottom
+      margin: [250, 20, 0, 45], // left, top, right, bottom
     },
   ];
 
-  const dados = orcamentos.map((orcamento) => {
-    return [
-      {
-        text: orcamento.quantidade,
-        alignment: "center",
-      },
-      {
-        text: orcamento.nomeProduto,
-      },
-      {
-        text: orcamento.marca,
-      },
-      {
-        text: priceFormatter.format(orcamento.precoVenda),
-        alignment: "center",
-      },
-      {
-        text: priceFormatter.format(
-          orcamento.quantidade * orcamento.precoVenda
-        ),
-        alignment: "center",
-      },
-    ];
-  });
+  const dados = orcamentos.map((orcamento) => [
+    {
+      text: orcamento.quantidade.toString(),
+      alignment: "center",
+    },
+    {
+      text: orcamento.nomeProduto,
+    },
+    {
+      text: orcamento.marca,
+    },
+    {
+      text: priceFormatter.format(orcamento.precoVenda),
+      alignment: "center",
+    },
+    {
+      text: priceFormatter.format(orcamento.quantidade * orcamento.precoVenda),
+      alignment: "center",
+    },
+  ]);
 
   const totalRow = [
     {},
     {},
     {},
-    { text: "Total", fontSize: 10, alignment: "center", bold: true },
+    {
+      text: "Total",
+      fontSize: 10,
+      alignment: "center",
+      bold: true,
+    },
     {
       text: priceFormatter.format(
         orcamentos.reduce(
@@ -77,18 +88,15 @@ export function OrcamentoPdf(orcamentos) {
     },
   ];
 
-  function Rodape(currentPage, pageCount) {
+  function Rodape() {
     return [
       {
-        text: currentPage + "/" + pageCount,
-        alignment: "right",
-        fontSize: 15,
-        margin: [0, 10, 20, 0],
+        text: "",
       },
     ];
   }
 
-  const docDefinitions = {
+  const docDefinitions: any = {
     pageSize: "A4",
     pageMargin: [15, 50, 15, 40],
 

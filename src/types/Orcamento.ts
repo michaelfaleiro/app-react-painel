@@ -20,8 +20,8 @@ export type TProduto = {
   precoVenda: number;
   link?: string;
   observacao?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type TImpressao = {
