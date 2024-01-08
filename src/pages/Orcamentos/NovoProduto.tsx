@@ -16,7 +16,6 @@ const schemaInput = z.object({
   sku: z.string().toUpperCase().min(1, { message: "Informe o sku" }),
   marca: z.string().toUpperCase().min(1, { message: "Informe a Marca" }),
   quantidade: z.number(),
-  precoCusto: z.number(),
   precoVenda: z.number(),
   link: z.string().optional(),
   observacao: z.string().optional(),
@@ -103,25 +102,6 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
               {errors.sku && (
                 <span className="text-red-400 font-semibold">
                   {errors.sku.message}
-                </span>
-              )}
-            </div>
-
-            <div className="flex flex-col">
-              <label htmlFor="precoCusto" className="">
-                Custo
-              </label>
-              <input
-                type="text"
-                id="precoCusto"
-                className="text-black p-1 rounded-md focus:bg-gray-300"
-                defaultValue="0"
-                {...register("precoCusto", { valueAsNumber: true })}
-              />
-
-              {errors.precoCusto && (
-                <span className="text-red-400 font-semibold">
-                  {errors.precoCusto.message}
                 </span>
               )}
             </div>

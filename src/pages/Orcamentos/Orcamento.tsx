@@ -122,7 +122,6 @@ export default function OrcamentoDetalhes() {
                   <th>Produto</th>
                   <th>Sku</th>
                   <th>Marca</th>
-                  <th>Custo</th>
                   <th>Venda</th>
                   <th>Link Produto</th>
                   <th>Total</th>
@@ -142,9 +141,6 @@ export default function OrcamentoDetalhes() {
                       </td>
                       <td className="px-1 py-2">{item.sku}</td>
                       <td className="px-1 py-2">{item.marca}</td>
-                      <td className="px-1 py-2">
-                        {priceFormatter.format(item.precoCusto)}
-                      </td>
                       <td className="px-6 py-4">
                         {priceFormatter.format(item.precoVenda)}
                       </td>
