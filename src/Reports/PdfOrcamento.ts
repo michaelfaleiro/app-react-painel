@@ -1,8 +1,4 @@
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
 import { TProduto } from "../types/Orcamento";
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const priceFormatter = new Intl.NumberFormat("pt-Br", {
   style: "currency",
@@ -16,7 +12,15 @@ export interface Orcamento {
   precoVenda: number;
 }
 
-export function PdfOrcamento(orcamentos: TProduto[]): void {
+export async function PdfOrcamento(orcamentos: TProduto[]) {
+  const pdfMakeModule = await import("pdfmake/build/pdfmake.min");
+  const pdfFontsModule = await import("pdfmake/build/vfs_fonts");
+
+  const pdfMake = pdfMakeModule.default;
+  const pdfFonts = pdfFontsModule.default;
+
+  pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
   const reportTitle: any = [
     {
       text: "Orcamento",
