@@ -1,6 +1,6 @@
 import pdfMake from "pdfmake/build/pdfmake";
-// import pdfFonts from 'pdfmake/build/vfs_fonts';
-// pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+import { TProduto } from "../types/Orcamento";
 
 pdfMake.fonts = {
   Roboto: {
@@ -13,8 +13,6 @@ pdfMake.fonts = {
       "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf",
   },
 };
-
-import { TProduto } from "../types/Orcamento";
 
 const priceFormatter = new Intl.NumberFormat("pt-Br", {
   style: "currency",
