@@ -12,9 +12,9 @@ interface Props {
 }
 
 const schemaInput = z.object({
-  nomeProduto: z.string().min(1, { message: "Informe o Produto" }),
-  sku: z.string().toUpperCase().min(1, { message: "Informe o sku" }),
-  marca: z.string().toUpperCase().min(1, { message: "Informe a Marca" }),
+  nomeProduto: z.string().min(1, { message: "Digite o nome do produto" }),
+  sku: z.string().toUpperCase().min(1, { message: "Digite o Sku" }),
+  marca: z.string().toUpperCase().min(1, { message: "Digite a Marca" }),
   quantidade: z.number(),
   precoVenda: z.number(),
   link: z.string().optional(),
@@ -53,14 +53,14 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
     return (
       <>
         <form action="" onSubmit={onSubmit(handleSubmit)}>
-          <div className="flex border flex-wrap gap-2 p-1">
+          <div className="flex border border-gray-500 flex-wrap gap-2 p-1 mb-4">
             <div className="flex flex-col w-[3rem]">
               <label htmlFor="quantidade">Quant</label>
               <input
                 type="text"
                 id="quantidade"
                 defaultValue={1}
-                className="text-black p-1 rounded-md focus:bg-gray-300"
+                className="text-black p-1 rounded-md focus:bg-gray-300 bg-gray-400"
                 {...register("quantidade", { valueAsNumber: true })}
               />
 
@@ -78,7 +78,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
               <input
                 type="text"
                 id="nomeProduto"
-                className="text-black p-1 rounded-md focus:bg-gray-300"
+                className="text-black p-1 rounded-md focus:bg-gray-300 bg-gray-400"
                 {...register("nomeProduto")}
               />
 
@@ -95,7 +95,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
               <input
                 type="text"
                 id="sku"
-                className="text-black p-1 rounded-md focus:bg-gray-300"
+                className="text-black p-1 rounded-md focus:bg-gray-300 bg-gray-400"
                 {...register("sku")}
               />
 
@@ -113,7 +113,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
               <input
                 type="text"
                 id="precoVenda"
-                className="text-black p-1 rounded-md focus:bg-gray-300"
+                className="text-black p-1 rounded-md focus:bg-gray-300 bg-gray-400"
                 defaultValue="0"
                 {...register("precoVenda", { valueAsNumber: true })}
               />
@@ -132,7 +132,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
               <input
                 type="text"
                 id="marca"
-                className="text-black p-1 rounded-md focus:bg-gray-300"
+                className="text-black p-1 rounded-md focus:bg-gray-300 bg-gray-400"
                 {...register("marca")}
               />
 
@@ -150,12 +150,12 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
               <input
                 type="text"
                 id="link"
-                className="text-black p-1 rounded-md focus:bg-gray-300"
+                className="text-black p-1 rounded-md focus:bg-gray-300 bg-gray-400"
                 {...register("link")}
               />
 
               {errors.link && (
-                <span className="text-red-400 font-semibold">
+                <span className="text-red-400 font-semibold ">
                   {errors.link.message}
                 </span>
               )}
@@ -168,7 +168,7 @@ export default function NovoProduto({ isOpen, setIsOpen, orcId }: Props) {
               <input
                 type="text"
                 id="observacao"
-                className="text-black p-1 rounded-md focus:bg-gray-300"
+                className="text-black p-1 rounded-md focus:bg-gray-300 bg-gray-400"
                 {...register("observacao")}
               />
 

@@ -34,8 +34,8 @@ export default function OrcamentoDetalhes() {
 
   return (
     <>
-      <div className="flex flex-row h-full bg-gray-500 ">
-        <header className="border border-gray-400 p-1 flex flex-col">
+      <div className="flex flex-row h-full  ">
+        <header className="border border-gray-700 p-1 flex flex-col">
           <div className="grow min-w-max">
             <h3 className=" text-center">Dados Cliente</h3>
 
@@ -78,15 +78,17 @@ export default function OrcamentoDetalhes() {
             </section>
           </footer>
         </header>
-        <section className="grow p-1 border border-gray-400 shadow-2xl">
-          <h3>DETALHES DO ORCAMENTO</h3>
+        <section className="grow px-3 border border-gray-700 shadow-2xl">
+          <h3 className="text-center text-xl font-semibold">
+            Detalhes Orçamento
+          </h3>
 
           <div className="pb-1 flex gap-3 ">
             <button
               title="Adicionar Produto"
               onClick={() => setIsOpen(!isOpen)}
-              className="px-4 py-1 rounded-sm  w-24  
-              bg-slate-900 hover:bg-slate-700
+              className="px-4 py-1 rounded-sm    
+              bg-slate-700 hover:bg-slate-600
              text-slate-400 hover:text-gray-300 transition duration-300 ease-in"
             >
               <i className="bi bi-cart-plus-fill mr-2 "></i>
@@ -94,7 +96,7 @@ export default function OrcamentoDetalhes() {
             </button>
 
             <button
-              className="px-4 py-1 rounded-sm  w-24 
+              className="px-4 py-1 rounded-sm   
               bg-red-900 hover:bg-red-800
              text-slate-400 hover:text-gray-300 transition duration-300 ease-in"
               onClick={() => PdfOrcamento(data?.produtos!)}
@@ -105,7 +107,13 @@ export default function OrcamentoDetalhes() {
             </button>
           </div>
 
-          <NovoProduto isOpen={isOpen} setIsOpen={setIsOpen} orcId={data?.id} />
+          <div className="transition duration-700">
+            <NovoProduto
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              orcId={data?.id}
+            />
+          </div>
 
           {isLoading ? (
             <div className="flex items-start justify-center w-full h-screen">
@@ -115,35 +123,32 @@ export default function OrcamentoDetalhes() {
               </div>
             </div>
           ) : (
-            <table className="w-full text-sm text-center rtl:text-right  text-gray-400   ">
+            <table className="w-full text-sm text-left rtl:text-right  text-gray-400   ">
               <thead className="text-xs uppercase bg-gray-700 text-gray-400  ">
                 <tr>
                   <th>Quant</th>
                   <th>Produto</th>
                   <th>Sku</th>
                   <th>Marca</th>
-                  <th>Venda</th>
                   <th>Link Produto</th>
-                  <th>Total</th>
+                  <th className="text-center">Venda</th>
+                  <th className="text-center">Total</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody className=" bg-gray-800 border-b border-gray-700 text-gray-400   ">
+              <tbody className=" bg-gray-800 border-b text-left border-gray-700 text-gray-400   ">
                 {data?.produtos?.map((item: TProduto) => {
                   return (
                     <tr
                       key={item.id}
                       className="hover:bg-gray-700 hover:text-gray-300 duration-300 ease-linear border-b border-b-gray-600"
                     >
-                      <td className="px-1 py-2">{item.quantidade}</td>
-                      <td className="px-1 py-2 text-left">
-                        {item.nomeProduto}
+                      <td className="px-1 py-2 text-center">
+                        {item.quantidade}
                       </td>
+                      <td className="px-1 py-2 ">{item.nomeProduto}</td>
                       <td className="px-1 py-2">{item.sku}</td>
                       <td className="px-1 py-2">{item.marca}</td>
-                      <td className="px-6 py-4">
-                        {priceFormatter.format(item.precoVenda)}
-                      </td>
                       <td>
                         <a
                           href={item.link}
@@ -158,12 +163,15 @@ export default function OrcamentoDetalhes() {
                           </i>
                         </a>
                       </td>
-                      <td>
+                      <td className="px-6 py-4 text-center">
+                        {priceFormatter.format(item.precoVenda)}
+                      </td>
+                      <td className="px6- py-4 text-center">
                         {priceFormatter.format(
                           item.quantidade * item.precoVenda
                         )}
                       </td>
-                      <td>
+                      <td className="">
                         <button
                           type="button"
                           onClick={() => removeProduto(item.id)}

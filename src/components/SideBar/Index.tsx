@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function SideBar() {
   return (
-    <div className="bg-gray-900 h-screen flex flex-col gap-3 text-slate-400">
+    <div className="bg-[#191919] h-screen flex flex-col gap-3 text-slate-400">
       <header className=" border-b border-gray-700 text-center p-2">
         Menu
       </header>

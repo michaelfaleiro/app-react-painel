@@ -81,7 +81,7 @@ export function PdfOrcamento(orcamentos: TProduto[]) {
   const details = [
     {
       table: {
-        widths: [30, 250, 60, 60, 60],
+        widths: [30, 250, 60, 60, 70],
         headerRows: 1,
         body: [
           [
